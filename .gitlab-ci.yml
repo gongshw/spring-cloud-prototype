@@ -1,0 +1,18 @@
+image: java:8-jdk
+
+stages:
+  - build
+
+build:
+  stage: build
+  script:
+    - bash ./build.all.sh
+  artifacts:
+    paths:
+      - output/bin/*.jar
+    expire_in: 1 week
+  only:
+    - master
+
+after_script:
+  - echo "End CI"

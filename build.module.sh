@@ -5,7 +5,7 @@ echo starting build $1
 jar_file=".${1//://}/build/libs/*"
 out_bin="output/bin"
 
-sh gradlew $1:bootJar || echo "fail to build module $1" && echo "exiting build..." && exit -1
+bash gradlew $1:bootJar || exit 1
 
 
 mkdir -p ${out_bin}
