@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
+set -e
+
 build_module(){
     bash ./build.module.sh $1 || exit 1
 }
 
-bash gradlew clean
+bash gradlew clean check
 
 echo "building base applications:"
 build_module :base:admin-server
