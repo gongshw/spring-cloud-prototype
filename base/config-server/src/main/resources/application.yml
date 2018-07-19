@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.home}/project/spring-cloud-start/config-repo
-          search-paths: dev
+          uri: https://gitlab.com/gongshw1992/spring-cloud-prototype
+          search-paths: conf/dev
       label: master
 

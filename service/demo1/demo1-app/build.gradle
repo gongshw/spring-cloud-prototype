@@ -1,3 +1,5 @@
+apply from: rootProject.file('gradle/include/bootstrap.gradle')
+
 dependencies {
     compile project(':base:server-common')
     compile project(':service:demo1:demo1-api')
