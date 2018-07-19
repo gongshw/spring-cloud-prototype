@@ -1,0 +1,16 @@
+import groovy.io.FileType
+
+rootProject.name = 'demo-root'
+
+new File('.').traverse([maxDepth: 3, filter: ~/.*build.gradle/, type: FileType.FILES]) {
+    def paths = it.toString().split(File.separator)
+    if (paths.length > 2) {
+        def moduleName = ''
+        for (int i = 1; i < paths.length - 1; i++) {
+            moduleName += ':'
+            moduleName += paths[i]
+        }
+        include "${moduleName}"
+        println "include ${moduleName}"
+    }
+}

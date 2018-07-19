@@ -1,0 +1,8 @@
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+    }
+}
+dependencies {
+}
