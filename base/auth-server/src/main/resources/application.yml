@@ -1,0 +1,22 @@
+logging:
+  level:
+    org.springframework.security: debug
+auth-server:
+  signingKey: signingKey
+  clients:
+    - username: web
+      password: web-password
+    - username: ios-app
+      password: ios-app-password
+    - username: android-app
+      password: android-app-password
+  users:
+    - username: admin
+      password: admin
+      roles:
+        - ADMIN
+        - USER
+    - username: user
+      password: user
+      roles:
+        - USER

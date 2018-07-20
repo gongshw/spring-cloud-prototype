@@ -3,7 +3,8 @@ package com.gongshw.scp.base.server.exception;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.http.ResponseEntity;
 
-import brave.Tracer;
+import com.gongshw.scp.base.server.trace.TraceService;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -13,10 +14,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class AbstractExceptionHandler {
-    private final Tracer tracer;
+    private final TraceService traceService;
 
-    public AbstractExceptionHandler(Tracer tracer) {
-        this.tracer = tracer;
+    public AbstractExceptionHandler(TraceService traceService) {
+        this.traceService = traceService;
     }
 
     protected ResponseEntity<ExceptionResponseBean> handler(Throwable e, int status, LogLevel logLevel) {
@@ -27,8 +28,8 @@ public class AbstractExceptionHandler {
         ExceptionResponseBean responseBean = new ExceptionResponseBean();
         responseBean.setCode(code);
         responseBean.setMessage(message);
-        responseBean.setTraceId(tracer.currentSpan().context().traceIdString());
-        responseBean.setSpanId(tracer.currentSpan().context().traceIdString());
+        responseBean.setTraceId(traceService.getTraceId());
+        responseBean.setSpanId(traceService.getSpanId());
         return ResponseEntity.status(status).body(responseBean);
     }
 

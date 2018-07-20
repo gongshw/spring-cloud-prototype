@@ -14,10 +14,14 @@ public class ResponseException extends RuntimeException {
     private final String traceId;
     private final String spanId;
 
+    private ResponseException(String msg, String code, String traceId, String spanId) {
+        super(msg);
+        this.code = code;
+        this.traceId = traceId;
+        this.spanId = spanId;
+    }
+
     public ResponseException(ExceptionResponseBean responseBean) {
-        super(responseBean.getMessage());
-        code = responseBean.getCode();
-        traceId = responseBean.getTraceId();
-        spanId = responseBean.getSpanId();
+        this(responseBean.getMessage(), responseBean.getCode(), responseBean.getTraceId(), responseBean.getSpanId());
     }
 }

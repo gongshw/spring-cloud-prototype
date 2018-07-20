@@ -9,11 +9,12 @@ build_module(){
 bash gradlew clean check
 
 echo "building base applications:"
-build_module :base:admin-server
-build_module :base:eureka-server
-build_module :base:zuul-proxy
 build_module :base:config-server
+build_module :base:eureka-server
+build_module :base:admin-server
+build_module :base:auth-server
+build_module :base:zuul-proxy
 
 echo "building service applications:"
-build_module :service:demo2
 build_module :service:demo1:demo1-app
+build_module :service:demo2

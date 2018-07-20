@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import brave.Tracer;
+import com.gongshw.scp.base.server.trace.TraceService;
 
 /**
- * common server-side exception hanlder for spring mvc application.
+ * common server-side exception handler for spring mvc application.
  *
  * @author gongshiwei@baidu.com
  */
 @ControllerAdvice
 public class CommonExceptionHandler extends AbstractExceptionHandler {
     @Autowired
-    public CommonExceptionHandler(Tracer tracer) {
-        super(tracer);
+    public CommonExceptionHandler(TraceService traceService) {
+        super(traceService);
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)

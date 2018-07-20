@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gongshw.scp.base.server.exception.AbstractExceptionHandler;
 import com.gongshw.scp.base.server.exception.ExceptionResponseBean;
+import com.gongshw.scp.base.server.trace.TraceService;
 import com.netflix.zuul.exception.ZuulException;
-
-import brave.Tracer;
 
 /**
  * Exception Controller for Zuul Filter.
@@ -29,8 +28,8 @@ public class ZuulExceptionController extends AbstractExceptionHandler implements
     private String errorPath;
 
     @Autowired
-    public ZuulExceptionController(Tracer tracer) {
-        super(tracer);
+    public ZuulExceptionController(TraceService traceService) {
+        super(traceService);
     }
 
     @Override

@@ -1,0 +1,5 @@
+apply from: rootProject.file('gradle/include/bootstrap.gradle')
+dependencies {
+    compile project(':base:server-common')
+
+}
