@@ -6,7 +6,7 @@ build_module(){
     bash ./build.module.sh $1 || exit 1
 }
 
-bash gradlew clean check
+bash gradlew clean check --info
 
 echo "building base applications:"
 build_module :base:config-server

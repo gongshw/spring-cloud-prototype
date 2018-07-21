@@ -15,6 +15,7 @@ buildscript {
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: "jacoco"
     apply plugin: 'checkstyle'
     apply plugin: "io.spring.dependency-management"
     apply plugin: "io.franzbecker.gradle-lombok"
@@ -44,6 +45,14 @@ subprojects {
 
     jar {
         enabled = true
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            html.enabled true
+            csv.enabled true
+        }
     }
 
     checkstyle {

@@ -2,6 +2,7 @@ apply from: rootProject.file('gradle/include/bootstrap.gradle')
 
 dependencies {
     compile project(':base:server-common')
-
     compile 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
+
+    testCompile project(':base:server-common-test')
 }
