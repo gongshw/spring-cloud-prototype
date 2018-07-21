@@ -1,5 +1,6 @@
 package io.focussource.base.server.trace;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import brave.Tracer;
@@ -13,15 +14,21 @@ import brave.Tracer;
 public class TraceService {
     private final Tracer tracer;
 
-    public TraceService(Tracer tracer) {
+    public TraceService(@Autowired(required = false) Tracer tracer) {
         this.tracer = tracer;
     }
 
     public String getTraceId() {
+        if (tracer == null) {
+            return "";
+        }
         return tracer.currentSpan().context().traceIdString();
     }
 
     public String getSpanId() {
+        if (tracer == null) {
+            return "";
+        }
         return Long.toHexString(tracer.currentSpan().context().spanId());
     }
 }

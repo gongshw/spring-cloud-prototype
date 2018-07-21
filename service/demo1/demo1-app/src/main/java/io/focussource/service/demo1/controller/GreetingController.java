@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class GreetingController implements Demo1Api {
 
-    @Value("${greeting}")
+    @Value("${greeting:hi}")
     private String greeting;
 
     @Override

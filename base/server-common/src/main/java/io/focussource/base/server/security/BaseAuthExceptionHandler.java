@@ -44,7 +44,6 @@ public class BaseAuthExceptionHandler extends AbstractExceptionHandler
     public void handle(HttpServletRequest request, HttpServletResponse response,
             AccessDeniedException accessDeniedException) {
         writeException(request, response, accessDeniedException);
-
     }
 
     private void writeException(HttpServletRequest request, HttpServletResponse response, Exception authException) {
