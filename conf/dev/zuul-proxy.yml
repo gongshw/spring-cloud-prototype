@@ -1,8 +1,0 @@
-zuul:
-  ignoredServices: '*'
-  routes:
-    demo1: /demo1/**
-    demo2: /demo2/**
-  host:
-    socket-timeout-millis: 15000
-    connect-timeout-millis: 30000

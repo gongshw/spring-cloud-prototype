@@ -1,6 +1,6 @@
 import groovy.io.FileType
 
-rootProject.name = 'demo-root'
+rootProject.name = 'focussource-root'
 
 new File('.').traverse([maxDepth: 3, filter: ~/.*build.gradle/, type: FileType.FILES]) {
     def paths = it.toString().split(File.separator)

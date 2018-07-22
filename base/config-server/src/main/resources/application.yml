@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          uri: git@gitlab.com:gongshw1992/spring-cloud-prototype.git
+          uri: git@gitlab.com:gongshw/spring-cloud-prototype-config-repo.git
           ignoreLocalSshSettings: true
           privateKey: |
                         -----BEGIN RSA PRIVATE KEY-----

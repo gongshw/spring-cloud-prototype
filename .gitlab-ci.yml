@@ -1,18 +1,47 @@
-image: java:8-jdk
+image: focussource/ci:latest
+
+variables:
+  # When using dind service we need to instruct docker, to talk with the
+  # daemon started inside of the service. The daemon is available with
+  # a network connection instead of the default /var/run/docker.sock socket.
+  #
+  # The 'docker' hostname is the alias of the service container as described at
+  # https://docs.gitlab.com/ee/ci/docker/using_docker_images.html#accessing-the-services
+  #
+  # Note that if you're using Kubernetes executor, the variable should be set to
+  # tcp://localhost:2375 because of how Kubernetes executor connects services
+  # to the job container
+  DOCKER_HOST: tcp://docker:2375/
+  # When using dind, it's wise to use the overlayfs driver for
+  # improved performance.
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:dind
 
 stages:
   - build
+  - check
+  - publish
+
 
 build:
   stage: build
   script:
-    - bash ./build.all.sh
+    - ./for_each_app ./build.module.sh
   artifacts:
     paths:
       - output/bin/*.jar
+      - output/Dockerfile
     expire_in: 1 week
-  only:
-    - master
 
-after_script:
-  - echo "End CI"
+check:
+  stage: check
+  script:
+    - ./gradlew check --stacktrace
+
+docker_push:
+  stage: publish
+  script:
+    - ./for_each_app ./push.module.sh
+  when: manual

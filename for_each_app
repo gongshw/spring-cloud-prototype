@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+applications=`find . -name build.gradle\
+    |xargs grep "gradle/include/bootstrap.gradle"\
+    |sed -E 's/^\.(.+)\/build.gradle:.*$/\1/p'\
+    |sed -E 's/\//:/g'\
+    |uniq`
+
+for app in ${applications}
+do
+    echo "execute $@ in ${app}"
+    $@ ${app} || exit 1
+done
