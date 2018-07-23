@@ -382,7 +382,7 @@ env.bak/
 venv.bak/
 
 # Spyder project settings
-.spyderproject
+.spyderprojectoutput/
 .spyproject
 
 # Rope project settings
@@ -449,3 +449,6 @@ GitHub.sublime-settings
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
+
+# Project Ignore Files
+output/
