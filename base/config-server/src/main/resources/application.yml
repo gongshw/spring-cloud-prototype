@@ -59,5 +59,4 @@ spring:
                         SpoiFXWydvtjnKHBFwQljvq4WaPhqTVJ0o6J5C+0Ue7ZH6/xzMbqrN8NWk8OgKmh
                         KDQW241O32QTk9TQReDxTzpr7vkl0/fss577Opok9eYbq1zB2RBi6MzN1WjVtQ==
                         -----END RSA PRIVATE KEY-----
-          search-paths: conf/${ENV:dev}
-      label: master
+          search-paths: ${ENV:dev}
