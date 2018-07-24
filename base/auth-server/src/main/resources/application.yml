@@ -1,8 +1,4 @@
-logging:
-  level:
-    org.springframework.security: debug
 auth-server:
-  signingKey: signingKey
   clients:
     - username: web
       password: web-password

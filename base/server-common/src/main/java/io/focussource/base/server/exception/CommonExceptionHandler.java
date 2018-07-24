@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -25,6 +26,11 @@ public class CommonExceptionHandler extends AbstractExceptionHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ExceptionResponseBean> handler404(Exception e) {
         return handler(e, HttpStatus.NOT_FOUND.value(), LogLevel.INFO);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ExceptionResponseBean> handler403(Exception e) {
+        return handler(e, HttpStatus.FORBIDDEN.value(), LogLevel.INFO);
     }
 
     @ExceptionHandler

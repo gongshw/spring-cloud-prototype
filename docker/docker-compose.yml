@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+
+  config-server:
+    image: focussource/config-server
+    environment:
+      - spring.cloud.config.server.overrides.endpoint.eureka.default=http://eureka-server/eureka/
+      - spring.cloud.config.server.overrides.endpoint.zipkin=http://zipkin:9411
+    ports:
+      - 8801:80
+
+  eureka-server:
+    image: focussource/eureka-server
+    ports:
+      - 8802:80
+
+  admin-server:
+    image: focussource/admin-server
+    environment:
+      - CONFIG_SERVER=http://config-server
+    ports:
+      - 8803:80
+
+  auth-server:
+    image: focussource/auth-server
+    environment:
+      - CONFIG_SERVER=http://config-server
+    ports:
+      - 8804:80
+
+  zuul-proxy:
+    image: focussource/zuul-proxy
+    environment:
+      - CONFIG_SERVER=http://config-server
+    ports:
+      - 8080:80
+
+  demo1:
+    image: focussource/demo1-app
+    environment:
+      - CONFIG_SERVER=http://config-server
+    ports:
+      - 80
+
+  demo2:
+    image: focussource/demo2
+    environment:
+      - CONFIG_SERVER=http://config-server
+    ports:
+      - 80

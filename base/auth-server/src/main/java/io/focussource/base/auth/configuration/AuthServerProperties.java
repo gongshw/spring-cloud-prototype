@@ -3,6 +3,7 @@ package io.focussource.base.auth.configuration;
 import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 
 import io.focussource.base.auth.model.ClientCredential;
@@ -15,6 +16,7 @@ import lombok.Data;
  * @author gongshw1992@gmail.com
  */
 @Data
+@RefreshScope
 @Configuration
 @ConfigurationProperties(prefix = "auth-server")
 public class AuthServerProperties {

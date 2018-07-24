@@ -144,7 +144,7 @@ service:demo2:docker_push:
   dependencies:
     - service:demo2:build
   script:
-    - ./push.module.sh service:demo2
+    - ./docker.module.sh push service:demo2
   when: manual
 
 service:demo1:demo1-app:docker_push:
@@ -152,7 +152,7 @@ service:demo1:demo1-app:docker_push:
   dependencies:
     - service:demo1:demo1-app:build
   script:
-    - ./push.module.sh service:demo1:demo1-app
+    - ./docker.module.sh push service:demo1:demo1-app
   when: manual
 
 base:admin-server:docker_push:
@@ -160,7 +160,7 @@ base:admin-server:docker_push:
   dependencies:
     - base:admin-server:build
   script:
-    - ./push.module.sh base:admin-server
+    - ./docker.module.sh push base:admin-server
   when: manual
 
 base:eureka-server:docker_push:
@@ -168,7 +168,7 @@ base:eureka-server:docker_push:
   dependencies:
     - base:eureka-server:build
   script:
-    - ./push.module.sh base:eureka-server
+    - ./docker.module.sh push base:eureka-server
   when: manual
 
 base:zuul-proxy:docker_push:
@@ -176,7 +176,7 @@ base:zuul-proxy:docker_push:
   dependencies:
     - base:zuul-proxy:build
   script:
-    - ./push.module.sh base:zuul-proxy
+    - ./docker.module.sh push base:zuul-proxy
   when: manual
 
 base:auth-server:docker_push:
@@ -184,7 +184,7 @@ base:auth-server:docker_push:
   dependencies:
     - base:auth-server:build
   script:
-    - ./push.module.sh base:auth-server
+    - ./docker.module.sh push base:auth-server
   when: manual
 
 base:config-server:docker_push:
@@ -192,6 +192,6 @@ base:config-server:docker_push:
   dependencies:
     - base:config-server:build
   script:
-    - ./push.module.sh base:config-server
+    - ./docker.module.sh push base:config-server
   when: manual
 

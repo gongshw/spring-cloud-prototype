@@ -3,7 +3,7 @@ apply plugin: "com.palantir.docker"
 
 
 docker {
-    dependsOn build
+    dependsOn bootJar
 
     def version = project.version
     def snapshot = true
@@ -28,8 +28,14 @@ docker {
     name imageName
 
     dockerfile rootProject.file('docker/Dockerfile')
-    files bootJar.archivePath
-    buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
+    files(
+            bootJar.archivePath,
+            rootProject.file('docker')
+    )
+    buildArgs([
+            'JAR_FILE': "${bootJar.archiveName}",
+            'APP_NAME': "${bootJar.baseName}"
+    ])
 }
 
 tasks.dockerPush.dependsOn(tasks.dockerTag)

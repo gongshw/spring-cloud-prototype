@@ -54,6 +54,6 @@ stages:
   dependencies:
     - {{ app }}:build
   script:
-    - ./push.module.sh {{ app }}
+    - ./docker.module.sh push {{ app }}
   when: manual
 {% endfor %}

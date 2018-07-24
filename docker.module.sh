@@ -26,6 +26,20 @@ else
     echo current git repo not clean, will build a snapshot image
 fi
 
-bash gradlew -PVERSION=${VERSION} -PBRANCH=${GIT_BRANCH} $1:dockerPush --stacktrace || exit 1
-
-echo $1 pushed to docker hub
+case $1 in
+    build)
+        bash gradlew -PVERSION=${VERSION} -PBRANCH=${GIT_BRANCH} $2:docker --stacktrace || exit 1
+        echo $1 build image $2 done!
+        ;;
+    push)
+        bash gradlew -PVERSION=${VERSION} -PBRANCH=${GIT_BRANCH} $2:dockerPush --stacktrace || exit 1
+        echo $1 pushed image $2 to docker hub
+        ;;
+    *)
+        cat << EOF
+Usage:
+    $0 build {app}
+    $0 push {app}
+EOF
+        ;;
+esac
