@@ -10,12 +10,9 @@ import org.springframework.security.oauth2.config.annotation.builders.InMemoryCl
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-
-import io.focussource.base.server.security.BaseAuthProperties;
 
 /**
  * Auth Server Configuration.
@@ -29,19 +26,23 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
 
     private final AuthenticationManager authenticationManager;
 
-    private final BaseAuthProperties baseAuthProperties;
+    private final AccessTokenConverter accessTokenConverter;
+
+    private final TokenStore tokenStore;
 
     private final AuthServerProperties authServerProperties;
 
     public AuthServerConfiguration(
             PasswordEncoder passwordEncoder,
             AuthenticationManager authenticationManager,
-            BaseAuthProperties baseAuthProperties,
+            AccessTokenConverter accessTokenConverter,
+            TokenStore tokenStore,
             AuthServerProperties authServerProperties
     ) {
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
-        this.baseAuthProperties = baseAuthProperties;
+        this.accessTokenConverter = accessTokenConverter;
+        this.tokenStore = tokenStore;
         this.authServerProperties = authServerProperties;
     }
 
@@ -58,29 +59,17 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.tokenStore(tokenStore())
-                .accessTokenConverter(accessTokenConverter())
+        endpoints.tokenStore(tokenStore)
+                .accessTokenConverter(accessTokenConverter)
                 .authenticationManager(authenticationManager)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(accessTokenConverter());
-    }
-
-    @Bean
-    public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(baseAuthProperties.getSigningKey());
-        return converter;
     }
 
     @Bean
     @Primary
     public DefaultTokenServices tokenServices() {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-        defaultTokenServices.setTokenStore(tokenStore());
+        defaultTokenServices.setTokenStore(tokenStore);
         defaultTokenServices.setSupportRefreshToken(true);
         return defaultTokenServices;
     }

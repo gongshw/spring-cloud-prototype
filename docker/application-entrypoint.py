@@ -32,7 +32,7 @@ else:
         'bash',
         '/wait-for-it.sh',
         '{}:{}'.format(config_server.hostname, 80 if config_server.port is None else config_server.port),
-        '-t', '120',
+        '-t', '300',
         '--strict',
         '--'
     ]

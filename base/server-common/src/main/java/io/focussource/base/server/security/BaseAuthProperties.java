@@ -19,5 +19,10 @@ public class BaseAuthProperties {
 
     private String[] excludes = new String[0];
 
-    private String signingKey = "signingKey";
+    private String signingKey = "327ed17cb8e54ce698d4ad295f495d30";
+
+    private String publicKey = ""
+            + "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDNccdNxcG6GhzmnU0nTBsdZ49Laq149jcWJIJX"
+            + "USh13tud31h81gslT0cDX6e2XrCaMwsXCVXPDeseynHtTGGnJAFxiFLrY1jxVTsY0l21HyE2gOWu"
+            + "qHH5pOqqLy0TtKzLWRqqRlbV1H8s61/1Mu2FLcOLE68K3iZT1pqW5+j7OQIDAQAB";
 }
