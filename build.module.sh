@@ -4,7 +4,7 @@ set -x
 
 echo starting build $1
 
-module_path=".${1//://}"
+module_path="./${1//://}"
 jar_file="${module_path}/build/libs/*"
 out="output"
 out_bin="${out}/bin"
