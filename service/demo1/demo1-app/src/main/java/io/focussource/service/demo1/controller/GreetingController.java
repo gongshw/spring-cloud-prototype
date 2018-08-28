@@ -2,15 +2,17 @@ package io.focussource.service.demo1.controller;
 
 import java.time.Instant;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.focussource.service.demo1.api.Demo1Api;
 import io.focussource.service.demo1.api.model.Greeting;
+import io.focussource.service.demo1.service.Demo1Service;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * demo1 greeing controller.
+ * demo1 greeting controller.
  *
  * @author gongshw1992@gmail.com
  */
@@ -20,6 +22,13 @@ public class GreetingController implements Demo1Api {
 
     @Value("${greeting:hi}")
     private String greeting;
+
+    private final Demo1Service demo1Service;
+
+    @Autowired
+    public GreetingController(Demo1Service demo1Service) {
+        this.demo1Service = demo1Service;
+    }
 
     @Override
     public Greeting hi() {
@@ -31,8 +40,7 @@ public class GreetingController implements Demo1Api {
 
     @Override
     public Instant time() {
-        log.info("time");
-        return Instant.now();
+        return demo1Service.time();
     }
 
     @Override

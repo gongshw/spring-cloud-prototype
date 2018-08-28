@@ -4,6 +4,11 @@ dependencyManagement {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
     }
+
+    dependencies {
+        dependency group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.2'
+        dependency group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
+    }
 }
 dependencies {
     compileOnly "org.springframework.boot:spring-boot-configuration-processor"

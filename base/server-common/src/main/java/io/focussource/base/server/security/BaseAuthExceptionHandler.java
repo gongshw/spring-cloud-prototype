@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import io.focussource.base.server.exception.AbstractExceptionHandler;
 import io.focussource.base.server.trace.TraceService;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
 /**
@@ -24,6 +25,7 @@ import lombok.val;
  *
  * @author gongshw1992@gmail.com
  */
+@Slf4j
 @Component
 public class BaseAuthExceptionHandler extends AbstractExceptionHandler
         implements AuthenticationEntryPoint, AccessDeniedHandler {
@@ -36,18 +38,19 @@ public class BaseAuthExceptionHandler extends AbstractExceptionHandler
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException authException) {
+                         AuthenticationException authException) {
         writeException(request, response, authException);
     }
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
-            AccessDeniedException accessDeniedException) {
+                       AccessDeniedException accessDeniedException) {
         writeException(request, response, accessDeniedException);
     }
 
     private void writeException(HttpServletRequest request, HttpServletResponse response, Exception authException) {
-        val entity = super.handler(authException, HttpStatus.FORBIDDEN.value(), LogLevel.WARN);
+        log.warn("{}: {}", authException.getClass().getSimpleName(), authException.getMessage());
+        val entity = super.handler(authException, HttpStatus.FORBIDDEN.value(), LogLevel.OFF);
         try {
             exceptionRenderer.handleHttpEntityResponse(entity, new ServletWebRequest(request, response));
             response.flushBuffer();

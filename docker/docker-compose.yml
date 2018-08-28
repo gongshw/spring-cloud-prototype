@@ -7,6 +7,11 @@ services:
     ports:
       - 9411:9411
 
+  mysql:
+    build: ./mysql
+    ports:
+      - 3306:3306
+
   config-server:
     image: focussource/config-server
     environment:
@@ -45,6 +50,7 @@ services:
     image: focussource/demo1-app
     environment:
       - CONFIG_SERVER=http://config-server
+      - MYSQL_HOST=mysql
     ports:
       - 80
 
