@@ -36,6 +36,7 @@ After all applications started up, visit the Spring Boot Admin Doashboard
 | focussource/demo1         | Random       | 80               | Demo Application Service #1       |
 | focussource/demo2         | Random       | 80               | Demo Application Service #2       |
 | focussource/zuul-proxy    | 8080         | 80               | Spring Cloud Zuul Proxy           |
+| mysql                     | 3306         | 3306             | Mysql Database                    |
 | openzipkin/zipkin         | 9411         | 9411             | Zipkin Tracing System             |
 
 ### Get User Token (Oauth2 + JWT)
@@ -61,6 +62,9 @@ curl -H "Authorization: bearer ${access_token}"  http://127.0.0.1:8080/demo1/sec
 
 # 403 forbidden
 curl -H "Authorization: bearer ${access_token}"  http://127.0.0.1:8080/demo1/security/checkAdmin
+
+# query db
+curl -H "Authorization: bearer ${access_token}"  http://127.0.0.1:8080/demo1/v1/list
 ```
 
 ### Tracing Dashboard

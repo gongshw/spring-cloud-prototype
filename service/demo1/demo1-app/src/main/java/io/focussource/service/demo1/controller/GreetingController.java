@@ -1,6 +1,7 @@
 package io.focussource.service.demo1.controller;
 
 import java.time.Instant;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.focussource.service.demo1.api.Demo1Api;
 import io.focussource.service.demo1.api.model.Greeting;
+import io.focussource.service.demo1.api.model.Model;
 import io.focussource.service.demo1.service.Demo1Service;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,5 +48,10 @@ public class GreetingController implements Demo1Api {
     @Override
     public void error() {
         throw new RuntimeException("i am error!!!");
+    }
+
+    @Override
+    public List<Model> list() {
+        return demo1Service.list();
     }
 }

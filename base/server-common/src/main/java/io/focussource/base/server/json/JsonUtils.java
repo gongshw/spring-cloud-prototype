@@ -1,10 +1,14 @@
 package io.focussource.base.server.json;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Map;
+import java.util.TimeZone;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import lombok.experimental.UtilityClass;
 
@@ -16,6 +20,17 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class JsonUtils {
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    static {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        MAPPER.setDateFormat(dateFormat);
+        MAPPER.setTimeZone(TimeZone.getTimeZone("UTC"));
+        MAPPER.registerModule(new JavaTimeModule());
+    }
+
+    static ObjectMapper mapper() {
+        return MAPPER;
+    }
 
     public static String toJson(Object obj) {
         try {

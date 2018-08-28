@@ -1,10 +1,12 @@
 package io.focussource.service.demo1.service;
 
 import java.time.Instant;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.focussource.service.demo1.api.model.Model;
 import io.focussource.service.demo1.mapper.ModelMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,5 +26,9 @@ public class Demo1Service {
     public Instant time() {
         log.info("time");
         return modelMapper.mysqlTime().toInstant();
+    }
+
+    public List<Model> list() {
+        return modelMapper.list();
     }
 }
